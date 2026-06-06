@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SDR Client — OpenRFStack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="hdr-inner">
+    <div class="hdr-left">
+      <span class="logo">📡</span>
+      <div>
+        <h1>SDR Client</h1>
+        <p>Send task requests to OpenRFStack via AMQP 1.0</p>
+      </div>
+    </div>
+    <div id="status-pill" class="pill disconnected">● Disconnected</div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Connection -->
+  <section class="card">
+    <div class="card-hdr">Connection</div>
+    <div class="row">
+      <label>Bridge <small>ws://</small>
+        <input id="bridge-url" type="text" value="localhost:8765">
+      </label>
+      <label>AMQP Host
+        <input id="amqp-host" type="text" value="localhost">
+      </label>
+      <label>Port
+        <input id="amqp-port" type="text" value="5672" style="width:5rem">
+      </label>
+      <label>User
+        <input id="amqp-user" type="text" value="sdr_ctrl">
+      </label>
+      <label>Password
+        <input id="amqp-pass" type="password" value="sdr_hw_test">
+      </label>
+      <button id="btn-connect" class="btn-primary">Connect</button>
+    </div>
+  </section>
+
+  <!-- Task -->
+  <section class="card">
+    <div class="card-hdr">Task Request</div>
+    <div class="row">
+      <label>Type
+        <select id="task-type">
+          <option>WIDEBAND</option>
+          <option>NARROWBAND</option>
+          <option>SNAPSHOT</option>
+          <option>TRIGGERED</option>
+          <option>DF</option>
+        </select>
+      </label>
+      <label>Freq (MHz)
+        <input id="task-freq" type="number" value="476.5" step="0.001">
+      </label>
+      <label>BW (MHz)
+        <input id="task-bw" type="number" value="20" step="0.1">
+      </label>
+      <label>SR (MSPS)
+        <input id="task-sr" type="number" value="20" step="0.1">
+      </label>
+      <label>Duration (ms)
+        <input id="task-dur" type="number" value="2000" step="100">
+      </label>
+      <label>Dest IP
+        <input id="task-ip" type="text" value="127.0.0.1">
+      </label>
+      <label>Rank
+        <input id="task-rank" type="number" value="2" min="1" max="10" style="width:4rem">
+      </label>
+      <button id="btn-send" class="btn-primary" disabled>Send Task</button>
+    </div>
+  </section>
+
+  <!-- Stop -->
+  <section class="card">
+    <div class="card-hdr">Stop Task</div>
+    <div class="row">
+      <label style="flex:1">Task ID
+        <input id="stop-taskid" type="text" placeholder="auto-filled from last ACCEPTED response" style="width:100%">
+      </label>
+      <button id="btn-stop" class="btn-warn" disabled>Stop Task</button>
+    </div>
+  </section>
+
+  <!-- Log -->
+  <section class="card log-card">
+    <div class="card-hdr">
+      Responses
+      <button id="btn-clear" class="btn-sm">Clear</button>
+    </div>
+    <div id="log"></div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

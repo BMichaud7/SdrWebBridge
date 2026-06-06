@@ -1,0 +1,13 @@
+{
+  "name": "sdr-bridge",
+  "version": "1.0.0",
+  "description": "WebSocket to AMQP 1.0 bridge for OpenRFStack",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "rhea": "^2.0.23",
+    "ws": "^8.18.0"
+  }
+}
