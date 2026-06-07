@@ -1,5 +1,7 @@
 using Amqp;
 using Amqp.Framing;
+using AmqpMessage    = Amqp.Message;
+using AmqpProperties = Amqp.Framing.Properties;
 
 namespace SdrClient;
 
@@ -42,8 +44,8 @@ public sealed class AmqpSession : IDisposable
     public void Send(string json)
     {
         if (_sender is null) throw new InvalidOperationException("Not connected");
-        var msg = new Message(json);
-        msg.Properties = new Properties { ContentType = "application/json" };
+        var msg = new AmqpMessage(json);
+        msg.Properties = new AmqpProperties { ContentType = "application/json" };
         _sender.Send(msg, null, null);
     }
 

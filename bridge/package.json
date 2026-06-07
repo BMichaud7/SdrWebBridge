@@ -7,7 +7,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "rhea": "^2.0.23",
+    "rhea": "^3.0.0",
     "ws": "^8.18.0"
   }
 }
