@@ -35,8 +35,9 @@ public sealed class AmqpSession : IDisposable
         try { _sender?.Close(); }     catch { }
         try { _session?.Close(); }    catch { }
         try { _connection?.Close(); } catch { }
-        _receiver = _sender = null;
-        _session  = null;
+        _receiver   = null;
+        _sender     = null;
+        _session    = null;
         _connection = null;
         StatusChanged?.Invoke("Disconnected");
     }
