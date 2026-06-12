@@ -49,7 +49,7 @@ public sealed class AmqpSession : IDisposable
         _sender.Send(msg, null, null);
     }
 
-    private void OnMessage(IReceiverLink link, Message msg)
+    private void OnMessage(IReceiverLink link, AmqpMessage msg)
     {
         try
         {
