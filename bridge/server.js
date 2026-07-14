@@ -57,7 +57,10 @@ wss.on('connection', ws => {
         } else if (msg.cmd === 'send') {
             if (!sender) { send({ type: 'error', message: 'Not connected' }); return; }
             try {
-                sender.send({ body: JSON.stringify(msg.payload),
+                // payload ?? null: JSON.stringify(undefined) returns the JS value
+                // undefined (not a string), producing a null AMQP body that breaks
+                // downstream JSON consumers.
+                sender.send({ body: JSON.stringify(msg.payload ?? null),
                               content_type: 'application/json' });
             } catch (e) { send({ type: 'error', message: String(e) }); }
 
@@ -66,5 +69,5 @@ wss.on('connection', ws => {
         }
     });
 
-    ws.on('close', () => { if (amqpConn) { amqpConn.close(); } });
+    ws.on('close', () => { if (amqpConn) { amqpConn.close(); amqpConn = sender = null; } });
 });
